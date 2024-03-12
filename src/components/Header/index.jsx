@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 
 const Header = () => {
 	return (
@@ -11,6 +11,7 @@ const Header = () => {
 					<NavLink to='/search'>Search</NavLink>
 				</nav>
 			</header>
+			<Outlet />
 		</main>
 	);
 };
