@@ -11,7 +11,7 @@ function App() {
 					<Route index element={<Pages.HomePage />} />
 					<Route path='/anime'>
 						<Route index element={<Pages.AnimePage />} />
-						<Route path='anime/:id' element={<Pages.AnimeInfoPage />} />
+						<Route path=':id' element={<Pages.AnimeInfoPage />} />
 					</Route>
 					<Route path='genres' element={<Pages.GenresPage />} />
 					<Route path='search' element={<Pages.SearchPage />} />
