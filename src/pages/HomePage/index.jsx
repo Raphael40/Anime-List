@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 const apiKey = import.meta.env.VITE_API_KEY;
 
 const HomePage = () => {
-	const [anime, setAnime] = useState([]);
+	const [animes, setAnimes] = useState([]);
 
 	useEffect(() => {
-		console.log(apiKey);
 		displayAnime();
 	}, []);
 
@@ -22,7 +21,7 @@ const HomePage = () => {
 		try {
 			const response = await fetch(url, options);
 			const result = await response.json();
-			console.log(result);
+			setAnimes(result.data);
 		} catch (error) {
 			console.error(error);
 		}
@@ -31,6 +30,12 @@ const HomePage = () => {
 	return (
 		<>
 			<h1>Welcome to Electric Anime</h1>
+			<div>
+				<h2>Top Ranked Anime</h2>
+				{animes.map(anime => (
+					<img src={anime.image} />
+				))}
+			</div>
 		</>
 	);
 };
