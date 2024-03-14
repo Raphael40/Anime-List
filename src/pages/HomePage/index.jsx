@@ -35,7 +35,7 @@ const HomePage = () => {
 			<div>
 				<h2>Top Ranked Anime</h2>
 				{animes.map(anime => (
-					<Link to={`anime/${anime._id}`}>
+					<Link to={`anime/${anime._id}`} key={anime._id}>
 						<img src={anime.image} key={anime._id} />
 					</Link>
 				))}
