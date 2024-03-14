@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 const apiKey = import.meta.env.VITE_API_KEY;
 
 const HomePage = () => {
@@ -21,6 +22,7 @@ const HomePage = () => {
 		try {
 			const response = await fetch(url, options);
 			const result = await response.json();
+			console.log(result.data);
 			setAnimes(result.data);
 		} catch (error) {
 			console.error(error);
@@ -33,7 +35,9 @@ const HomePage = () => {
 			<div>
 				<h2>Top Ranked Anime</h2>
 				{animes.map(anime => (
-					<img src={anime.image} />
+					<Link to={`anime/${anime._id}`} key={anime._id}>
+						<img src={anime.image} key={anime._id} />
+					</Link>
 				))}
 			</div>
 		</>

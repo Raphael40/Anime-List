@@ -1,5 +1,57 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+import './AnimeInfoPage.css';
+
+const apiKey = import.meta.env.VITE_API_KEY;
+
 const AnimeInfoPage = () => {
-	return <div>AnimeInfoPage</div>;
+	const [anime, setAnime] = useState({ genres: [] });
+	const { id } = useParams();
+
+	useEffect(() => {
+		displayAnime();
+	}, []);
+
+	const displayAnime = async () => {
+		const url = `https://anime-db.p.rapidapi.com/anime/by-id/${id}`;
+		const options = {
+			method: 'GET',
+			headers: {
+				'X-RapidAPI-Key': `${apiKey}`,
+				'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
+			}
+		};
+
+		try {
+			const response = await fetch(url, options);
+			const result = await response.json();
+			setAnime(result);
+			console.log(result);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	return (
+		<>
+			<h2>{anime.title}</h2>
+			<h3>{anime.alternativeTitles}</h3>
+			<img src={anime.image} alt={anime.title} />
+			<p>Rank: {anime.ranking}</p>
+			<div className='genresContainer'>
+				<p>
+					<strong>Genres:</strong>
+				</p>
+				{anime.genres.map(genre => (
+					<p key={genre}>{genre}</p>
+				))}
+			</div>
+			<div>
+				<p>{anime.synopsis}</p>
+			</div>
+		</>
+	);
 };
 
 export default AnimeInfoPage;
