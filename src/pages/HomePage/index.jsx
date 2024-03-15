@@ -40,8 +40,6 @@ const HomePage = () => {
 		}
 	};
 
-	// return conditional, if genre, display anime with field === to genre, else display anime
-
 	return (
 		<>
 			<h1>Welcome to Electric Anime</h1>
