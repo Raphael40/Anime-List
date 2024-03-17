@@ -50,19 +50,21 @@ const HomePage = () => {
 				<Genres genres={genres} setGenre={setGenre} />
 			</section>
 			<main>
-				{genre
-					? animes
-							.filter(anime => anime.genres.some(gen => gen === genre))
-							.map(anime => (
+				<div>
+					{genre
+						? animes
+								.filter(anime => anime.genres.some(gen => gen === genre))
+								.map(anime => (
+									<Link to={`anime/${anime._id}`} key={anime._id}>
+										<img src={anime.image} alt={anime.title} />
+									</Link>
+								))
+						: animes.map(anime => (
 								<Link to={`anime/${anime._id}`} key={anime._id}>
 									<img src={anime.image} alt={anime.title} />
 								</Link>
-							))
-					: animes.map(anime => (
-							<Link to={`anime/${anime._id}`} key={anime._id}>
-								<img src={anime.image} alt={anime.title} />
-							</Link>
-					  ))}
+						  ))}
+				</div>
 			</main>
 		</>
 	);
