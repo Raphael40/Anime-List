@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
+import { Gallery } from '../../components';
 import { Genres } from '../../components';
 
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -50,19 +50,9 @@ const HomePage = () => {
 				<Genres genres={genres} setGenre={setGenre} />
 			</section>
 			<main>
-				{genre
-					? animes
-							.filter(anime => anime.genres.some(gen => gen === genre))
-							.map(anime => (
-								<Link to={`anime/${anime._id}`} key={anime._id}>
-									<img src={anime.image} alt={anime.title} />
-								</Link>
-							))
-					: animes.map(anime => (
-							<Link to={`anime/${anime._id}`} key={anime._id}>
-								<img src={anime.image} alt={anime.title} />
-							</Link>
-					  ))}
+				<div>
+					<Gallery animes={animes} genre={genre} />
+				</div>
 			</main>
 		</>
 	);
