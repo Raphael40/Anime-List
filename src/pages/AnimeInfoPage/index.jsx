@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
 import './AnimeInfoPage.css';
@@ -9,28 +9,31 @@ const AnimeInfoPage = () => {
 	const [anime, setAnime] = useState({ genres: [] });
 	const { id } = useParams();
 
+	const displayAnime = useMemo(
+		() => async () => {
+			const url = `https://anime-db.p.rapidapi.com/anime/by-id/${id}`;
+			const options = {
+				method: 'GET',
+				headers: {
+					'X-RapidAPI-Key': `${apiKey}`,
+					'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
+				}
+			};
+
+			try {
+				const response = await fetch(url, options);
+				const result = await response.json();
+				setAnime(result);
+			} catch (error) {
+				console.error(error);
+			}
+		},
+		[id]
+	);
+
 	useEffect(() => {
 		displayAnime();
-	}, []);
-
-	const displayAnime = async () => {
-		const url = `https://anime-db.p.rapidapi.com/anime/by-id/${id}`;
-		const options = {
-			method: 'GET',
-			headers: {
-				'X-RapidAPI-Key': `${apiKey}`,
-				'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
-			}
-		};
-
-		try {
-			const response = await fetch(url, options);
-			const result = await response.json();
-			setAnime(result);
-		} catch (error) {
-			console.error(error);
-		}
-	};
+	}, [displayAnime]);
 
 	return (
 		<div className='anime-info-container'>
