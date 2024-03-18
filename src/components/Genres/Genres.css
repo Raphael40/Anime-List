@@ -12,3 +12,8 @@
 .genres-section h2 {
 	margin-top: 0;
 }
+
+.genre-tag:hover {
+	color: #4caf50;
+	cursor: pointer;
+}

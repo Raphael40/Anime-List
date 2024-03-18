@@ -12,11 +12,10 @@ const HomePage = () => {
 
 	useEffect(() => {
 		displayAnime();
-	}, []);
+	}, [genre]);
 
 	const displayAnime = async () => {
-		const animeUrl =
-			'https://anime-db.p.rapidapi.com/anime?page=1&size=30&sortBy=ranking&sortOrder=asc';
+		const animeUrl = `https://anime-db.p.rapidapi.com/anime?page=1&size=30&genres=${genre}&sortBy=ranking&sortOrder=asc`;
 		const genresUrl = 'https://anime-db.p.rapidapi.com/genre';
 
 		const options = {
@@ -34,7 +33,8 @@ const HomePage = () => {
 
 			const genresResponse = await fetch(genresUrl, options);
 			const genresResult = await genresResponse.json();
-			setGenres(genresResult);
+			const cleanResult = genresResult.filter(genre => genre._id !== 'Hentai');
+			setGenres(cleanResult);
 		} catch (error) {
 			console.error(error);
 		}
@@ -43,16 +43,14 @@ const HomePage = () => {
 	return (
 		<>
 			<h1>Welcome to Julian's Anime List</h1>
-			<div>
-				<h2>Top Ranked Anime</h2>
-			</div>
+			<div>{genre ? <h2>Top {genre} Anime</h2> : <h2>Top Ranked Anime</h2>}</div>
 			<main className='container'>
 				<section className='genres-section'>
 					<Genres genres={genres} setGenre={setGenre} />
 				</section>
 				<section className='main-content'>
 					<div className='gallery-container'>
-						<Gallery animes={animes} genre={genre} />
+						<Gallery animes={animes} />
 					</div>
 				</section>
 			</main>
