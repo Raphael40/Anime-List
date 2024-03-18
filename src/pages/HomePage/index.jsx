@@ -26,7 +26,6 @@ const HomePage = () => {
 			try {
 				const animeResponse = await fetch(animeUrl, options);
 				const animeResult = await animeResponse.json();
-				console.log(animeResult.data);
 				setAnimes(animeResult.data);
 
 				const genresResponse = await fetch(genresUrl, options);
