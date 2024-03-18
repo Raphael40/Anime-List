@@ -16,7 +16,7 @@ const HomePage = () => {
 
 	const displayAnime = async () => {
 		const animeUrl =
-			'https://anime-db.p.rapidapi.com/anime?page=1&size=10&sortBy=ranking&sortOrder=asc';
+			'https://anime-db.p.rapidapi.com/anime?page=1&size=30&sortBy=ranking&sortOrder=asc';
 		const genresUrl = 'https://anime-db.p.rapidapi.com/genre';
 
 		const options = {
@@ -42,17 +42,19 @@ const HomePage = () => {
 
 	return (
 		<>
-			<h1>Welcome to Electric Anime</h1>
+			<h1>Welcome to Julian's Anime List</h1>
 			<div>
 				<h2>Top Ranked Anime</h2>
 			</div>
-			<section>
-				<Genres genres={genres} setGenre={setGenre} />
-			</section>
-			<main>
-				<div>
-					<Gallery animes={animes} genre={genre} />
-				</div>
+			<main className='container'>
+				<section className='genres-section'>
+					<Genres genres={genres} setGenre={setGenre} />
+				</section>
+				<section className='main-content'>
+					<div className='gallery-container'>
+						<Gallery animes={animes} genre={genre} />
+					</div>
+				</section>
 			</main>
 		</>
 	);
