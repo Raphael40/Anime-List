@@ -1,0 +1,24 @@
+.search-form {
+	margin-bottom: 20px; /* Add more margin to bottom of the form */
+	padding: 30px 0; /* Add more padding above and below the form */
+}
+
+.search-form input[type='text'],
+.search-form input[type='submit'] {
+	padding: 15px 30px; /* Add more padding to text input and submit button */
+	font-size: 18px; /* Increase font size */
+	border: 2px solid #ccc; /* Add border to text input and submit button */
+	border-radius: 10px; /* Add rounded corners */
+}
+
+.search-form input[type='submit'] {
+	background-color: #333; /* Set background color for submit button */
+	color: #fff; /* Set text color for submit button */
+	border-color: #333; /* Set border color for submit button */
+}
+
+.search-form input[type='submit']:hover {
+	background-color: #4caf50; /* Change background color on hover */
+	border-color: #4caf50; /* Change border color on hover */
+	cursor: pointer; /* Add cursor pointer to submit button */
+}

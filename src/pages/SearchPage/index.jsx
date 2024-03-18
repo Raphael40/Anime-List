@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Gallery } from '../../components';
+import { Gallery, SearchForm } from '../../components';
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -45,13 +45,8 @@ const SearchPage = () => {
 	return (
 		<>
 			<div>
-				<form onSubmit={handleSubmit}>
-					<label>Search: </label>
-					<input type='text' onChange={handleInput} required></input>
-					<input type='submit' value='search'></input>
-				</form>
+				<SearchForm inputValue={inputValue} handleInput={handleInput} handleSubmit={handleSubmit} />
 			</div>
-
 			<main>
 				<Gallery animes={animes} />
 			</main>

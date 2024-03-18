@@ -37,14 +37,37 @@
 	padding: 2em;
 }
 
-.read-the-docs {
-	color: #888;
+.nav-bar {
+	background-color: #333;
+	overflow: hidden;
 }
 
-.active:hover {
-	color: darkred;
+.nav-bar a {
+	float: left;
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
 }
 
-.active {
-	color: darkred;
+.nav-bar a:hover {
+	background-color: #ddd;
+	color: black;
+}
+
+.nav-bar a.active {
+	background-color: #4caf50;
+	color: white;
+}
+
+.container {
+	display: flex;
+	min-width: 1200px;
+}
+
+.gallery-container {
+	flex: 1;
+	padding: 20px;
+	overflow-y: auto;
 }

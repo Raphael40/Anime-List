@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-const apiKey = import.meta.env.VITE_API_KEY;
+import './Genres.css';
 
 const GenresPage = ({ genres, setGenre }) => {
 	const handleClick = genre => {

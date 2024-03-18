@@ -1,0 +1,14 @@
+.genres-section {
+	width: 320px;
+	max-width: 230px;
+	height: 100%;
+	background-color: #f4f4f4;
+	padding: 20px;
+	margin-top: 20px;
+	overflow-y: auto;
+	box-sizing: border-box;
+}
+
+.genres-section h2 {
+	margin-top: 0;
+}
