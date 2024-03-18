@@ -33,7 +33,8 @@ const HomePage = () => {
 
 			const genresResponse = await fetch(genresUrl, options);
 			const genresResult = await genresResponse.json();
-			setGenres(genresResult);
+			const cleanResult = genresResult.filter(genre => genre._id !== 'Hentai');
+			setGenres(cleanResult);
 		} catch (error) {
 			console.error(error);
 		}

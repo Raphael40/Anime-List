@@ -8,11 +8,11 @@ const GenresPage = ({ genres, setGenre }) => {
 
 	return (
 		<>
-			<p class='genre-tag' onClick={() => setGenre('')}>
+			<p className='genre-tag' onClick={() => setGenre('')}>
 				All
 			</p>
 			{genres.map(genre => (
-				<p class='genre-tag' onClick={() => handleClick(genre._id)} key={genre._id}>
+				<p className='genre-tag' onClick={() => handleClick(genre._id)} key={genre._id}>
 					{genre._id}
 				</p>
 			))}
