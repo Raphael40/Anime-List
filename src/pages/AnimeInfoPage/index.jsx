@@ -27,18 +27,21 @@ const AnimeInfoPage = () => {
 			const response = await fetch(url, options);
 			const result = await response.json();
 			setAnime(result);
-			console.log(result);
 		} catch (error) {
 			console.error(error);
 		}
 	};
 
 	return (
-		<>
+		<div className='anime-info-container'>
 			<h2>{anime.title}</h2>
 			<h3>{anime.alternativeTitles}</h3>
 			<img src={anime.image} alt={anime.title} />
-			<p>Rank: {anime.ranking}</p>
+			<div className='rankingContainer'>
+				<p>
+					<strong>Rank:</strong> {anime.ranking}
+				</p>
+			</div>
 			<div className='genresContainer'>
 				<p>
 					<strong>Genres:</strong>
@@ -50,7 +53,7 @@ const AnimeInfoPage = () => {
 			<div>
 				<p>{anime.synopsis}</p>
 			</div>
-		</>
+		</div>
 	);
 };
 
