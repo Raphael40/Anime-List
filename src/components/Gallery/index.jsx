@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { GalleryImage } from '..';
 
 const Gallery = ({ animes, genre }) => {
 	return (
@@ -7,16 +7,8 @@ const Gallery = ({ animes, genre }) => {
 			{genre
 				? animes
 						.filter(anime => anime.genres.some(gen => gen === genre))
-						.map(anime => (
-							<Link to={`/${anime._id}`} key={anime._id}>
-								<img src={anime.image} alt={anime.title} />
-							</Link>
-						))
-				: animes.map(anime => (
-						<Link to={`/${anime._id}`} key={anime._id}>
-							<img src={anime.image} alt={anime.title} />
-						</Link>
-				  ))}
+						.map(anime => <GalleryImage anime={anime} />)
+				: animes.map(anime => <GalleryImage anime={anime} />)}
 		</div>
 	);
 };
