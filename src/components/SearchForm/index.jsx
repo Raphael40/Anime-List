@@ -3,7 +3,7 @@ import './SearchForm.css';
 const SearchForm = ({ inputValue, handleSubmit, handleInput }) => {
 	return (
 		<>
-			<form className='search-form' onSubmit={handleSubmit}>
+			<form role='search-form' className='search-form' onSubmit={handleSubmit}>
 				<input
 					type='text'
 					onChange={handleInput}
