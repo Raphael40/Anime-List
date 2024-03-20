@@ -1,8 +1,4 @@
-.gallery-image {
-	width: 100%;
-}
-
-.gallery-image img {
+.gallery-image-container .gallery-image {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
