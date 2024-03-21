@@ -29,7 +29,19 @@ describe('AnimeInfoPage component', () => {
 		cleanup();
 	});
 
-	it.skip('renders an anime-info-container', () => {
+	it('renders an anime-info-container', () => {
+		const animeData = {
+			_id: '4040',
+			title: 'Test Anime',
+			alternativeTitles: 'Tests',
+			image: '../../../public/Electric-Grape.png',
+			synopsis: 'Data for testing',
+			ranking: 1,
+			genres: ['test']
+		};
+
+		fetch.mockResolvedValue(createFetchResponse(animeData));
+
 		render(<AnimeInfoPage />);
 
 		const container = screen.getByRole('anime-info-container');
@@ -52,13 +64,16 @@ describe('AnimeInfoPage component', () => {
 
 		render(<AnimeInfoPage />);
 
-		expect(fetch).toHaveBeenCalledWith(`https://anime-db.p.rapidapi.com/anime/by-id/4040`, {
-			method: 'GET',
-			headers: {
-				'X-RapidAPI-Key': `${apiKey}`,
-				'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
+		expect(fetch).toHaveBeenCalledWith(
+			`https://anime-db.p.rapidapi.com/anime/by-id/${animeData._id}`,
+			{
+				method: 'GET',
+				headers: {
+					'X-RapidAPI-Key': `${apiKey}`,
+					'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
+				}
 			}
-		});
+		);
 
 		const anime = await screen.findAllByRole('heading');
 		expect(anime[0]).toContainHTML('<h2>Test Anime</h2>');
@@ -69,16 +84,6 @@ describe('AnimeInfoPage component', () => {
 	});
 
 	it('returns an error when the fetch fails', async () => {
-		const animeData = {
-			_id: '4040',
-			title: 'Test Anime',
-			alternativeTitles: 'Tests',
-			image: '../../../public/Electric-Grape.png',
-			synopsis: 'Data for testing',
-			ranking: 1,
-			genres: ['test']
-		};
-
 		fetch.mockRejectedValue({ error: 'Could not find anime' });
 
 		render(<AnimeInfoPage />);
@@ -92,9 +97,9 @@ describe('AnimeInfoPage component', () => {
 		});
 
 		try {
-			await screen.findAllByRole('heading');
+			await screen.findByText('Missing anime');
 		} catch (error) {
-			expect({ error: 'Could not find anime' });
+			expect(error.message).toContain('Unable to find an element with the text: Missing anime.');
 		}
 	});
 });

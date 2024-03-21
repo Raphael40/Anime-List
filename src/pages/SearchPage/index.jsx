@@ -44,11 +44,13 @@ const SearchPage = () => {
 
 	return (
 		<>
-			<div>
+			<div role='search-form-container'>
 				<SearchForm inputValue={inputValue} handleInput={handleInput} handleSubmit={handleSubmit} />
 			</div>
 			<main>
-				<Gallery animes={animes} />
+				<div role='gallery-container'>
+					<Gallery animes={animes} />
+				</div>
 			</main>
 		</>
 	);

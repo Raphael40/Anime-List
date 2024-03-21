@@ -22,7 +22,6 @@ const AnimeInfoPage = () => {
 
 			try {
 				const response = await fetch(url, options);
-				console.log('response: ', response);
 				const result = await response.json();
 				setAnime(result);
 			} catch (error) {
