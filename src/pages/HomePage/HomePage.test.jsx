@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import * as matchers from '@testing-library/jest-dom/matchers';
 expect.extend(matchers);
 
-import SearchPage from '.';
+import HomePage from '.';
 
 global.fetch = vi.fn();
 
@@ -17,12 +17,14 @@ function createFetchResponse(data) {
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
-describe('SearchPage component', () => {
+describe('HomePage component', () => {
 	afterEach(() => {
 		cleanup();
 	});
 
-	it('renders a search-form-container and a gallery-container', () => {
+	it('renders a genres-section and a gallery-container', () => {
+		const genres = [{ _id: 'Test Genre' }, { _id: 'Second Test Genre' }];
+
 		const animes = {
 			data: [
 				{
@@ -39,21 +41,24 @@ describe('SearchPage component', () => {
 		};
 
 		fetch.mockResolvedValueOnce(createFetchResponse(animes));
+		fetch.mockResolvedValueOnce(createFetchResponse(genres));
 
 		render(
 			<BrowserRouter>
-				<SearchPage />
+				<HomePage />
 			</BrowserRouter>
 		);
 
-		const searchContainer = screen.getByRole('search-form-container');
-		const galleryContainer = screen.getByRole('search-form-container');
+		const genresContainer = screen.getByRole('genres-section');
+		const galleryContainer = screen.getByRole('gallery-container');
 
-		expect(searchContainer).toBeInTheDocument();
+		expect(genresContainer).toBeInTheDocument();
 		expect(galleryContainer).toBeInTheDocument();
 	});
 
-	it('renders animes from the api on page load', async () => {
+	it('renders animes and genres from the api on page load', async () => {
+		const genres = [{ _id: 'Test Genre' }, { _id: 'Second Test Genre' }];
+
 		const animes = {
 			data: [
 				{
@@ -69,16 +74,17 @@ describe('SearchPage component', () => {
 			]
 		};
 
-		fetch.mockResolvedValue(createFetchResponse(animes));
+		fetch.mockResolvedValueOnce(createFetchResponse(animes));
+		fetch.mockResolvedValueOnce(createFetchResponse(genres));
 
 		render(
 			<BrowserRouter>
-				<SearchPage />
+				<HomePage />
 			</BrowserRouter>
 		);
 
 		expect(fetch).toHaveBeenCalledWith(
-			`https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=&sortBy=ranking&sortOrder=asc`,
+			`https://anime-db.p.rapidapi.com/anime?page=1&size=30&genres=&sortBy=ranking&sortOrder=asc`,
 			{
 				method: 'GET',
 				headers: {
@@ -88,14 +94,24 @@ describe('SearchPage component', () => {
 			}
 		);
 
-		const galleryImage = await screen.findByAltText('Test Anime');
-		expect(galleryImage).toBeInTheDocument();
+		expect(fetch).toHaveBeenCalledWith(`https://anime-db.p.rapidapi.com/genre`, {
+			method: 'GET',
+			headers: {
+				'X-RapidAPI-Key': `${apiKey}`,
+				'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
+			}
+		});
 
-		const galleryImage2 = await screen.findByAltText('Test Anime 2');
-		expect(galleryImage2).toHaveClass('gallery-image');
+		const genreText = await screen.findByText('Test Genre');
+		expect(genreText).toBeInTheDocument();
+
+		const galleryImage = await screen.findByAltText('Test Anime');
+		expect(galleryImage).toHaveClass('gallery-image');
 	});
 
-	it('renders new animes from the api after searching', async () => {
+	it('renders new anime from the api after selecting a genre', async () => {
+		const genres = [{ _id: 'Test Genre' }, { _id: 'Second Test Genre' }];
+
 		const animes = {
 			data: [
 				{
@@ -112,40 +128,41 @@ describe('SearchPage component', () => {
 		};
 
 		fetch.mockResolvedValueOnce(createFetchResponse(animes));
+		fetch.mockResolvedValueOnce(createFetchResponse(genres));
 
 		render(
 			<BrowserRouter>
-				<SearchPage />
+				<HomePage />
 			</BrowserRouter>
 		);
 
 		const galleryImage = await screen.findByAltText('Test Anime');
-		expect(galleryImage).toBeInTheDocument();
+		expect(galleryImage).toHaveClass('gallery-image');
 
-		const searchAnimes = {
+		const filteredAnimes = {
 			data: [
 				{
-					_id: '2020',
-					title: 'Search Anime',
+					_id: '6060',
+					title: 'Filtered Anime',
 					image: '../../../public/Electric-Grape.png'
 				},
 				{
 					_id: '1000',
-					title: 'Search Anime 2',
+					title: 'Filtered Anime 2',
 					image: '../../../public/Electric-Grape.png'
 				}
 			]
 		};
 
-		fetch.mockResolvedValue(createFetchResponse(searchAnimes));
+		const genreText = await screen.findByText('Test Genre');
+		expect(genreText).toBeInTheDocument();
 
-		const textBox = screen.getByRole('textbox');
-		const submit = screen.getByRole('button');
-		await userEvent.type(textBox, 'Berserk');
-		await userEvent.click(submit);
+		fetch.mockResolvedValue(createFetchResponse(filteredAnimes));
+
+		await userEvent.click(genreText);
 
 		expect(fetch).toHaveBeenCalledWith(
-			`https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=Berserk&sortBy=ranking&sortOrder=asc`,
+			`https://anime-db.p.rapidapi.com/anime?page=1&size=30&genres=&sortBy=ranking&sortOrder=asc`,
 			{
 				method: 'GET',
 				headers: {
@@ -155,11 +172,14 @@ describe('SearchPage component', () => {
 			}
 		);
 
-		const searchGalleryImage = await screen.findByAltText('Search Anime');
-		expect(searchGalleryImage).toBeInTheDocument();
+		const filteredGalleryImage = await screen.findByAltText('Filtered Anime');
+		expect(filteredGalleryImage).toBeInTheDocument();
+		expect(filteredGalleryImage).toHaveClass('gallery-image');
 	});
 
 	it('returns an error when the fetch fails', async () => {
+		const genres = [{ _id: 'Test Genre' }, { _id: 'Second Test Genre' }];
+
 		const animes = {
 			data: [
 				{
@@ -176,25 +196,26 @@ describe('SearchPage component', () => {
 		};
 
 		fetch.mockResolvedValueOnce(createFetchResponse(animes));
+		fetch.mockResolvedValueOnce(createFetchResponse(genres));
 
 		render(
 			<BrowserRouter>
-				<SearchPage />
+				<HomePage />
 			</BrowserRouter>
 		);
 
 		const galleryImage = await screen.findByAltText('Test Anime');
-		expect(galleryImage).toBeInTheDocument();
+		expect(galleryImage).toHaveClass('gallery-image');
 
-		fetch.mockRejectedValueOnce({});
+		const genreText = await screen.findByText('Test Genre');
+		expect(genreText).toBeInTheDocument();
 
-		const textBox = screen.getByRole('textbox');
-		const submit = screen.getByRole('button');
-		await userEvent.type(textBox, 'Berserk');
-		await userEvent.click(submit);
+		fetch.mockRejectedValueOnce(createFetchResponse({}));
+
+		await userEvent.click(genreText);
 
 		expect(fetch).toHaveBeenCalledWith(
-			`https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=Berserk&sortBy=ranking&sortOrder=asc`,
+			`https://anime-db.p.rapidapi.com/anime?page=1&size=30&genres=&sortBy=ranking&sortOrder=asc`,
 			{
 				method: 'GET',
 				headers: {
@@ -205,9 +226,11 @@ describe('SearchPage component', () => {
 		);
 
 		try {
-			await screen.findByAltText('Search Anime');
+			await screen.findByAltText('Filtered Anime');
 		} catch (error) {
-			expect(error.message).toContain('Unable to find an element with the alt text: Search Anime');
+			expect(error.message).toContain(
+				'Unable to find an element with the alt text: Filtered Anime'
+			);
 		}
 	});
 });

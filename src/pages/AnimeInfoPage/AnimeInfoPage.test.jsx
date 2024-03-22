@@ -84,7 +84,7 @@ describe('AnimeInfoPage component', () => {
 	});
 
 	it('returns an error when the fetch fails', async () => {
-		fetch.mockRejectedValue({ error: 'Could not find anime' });
+		fetch.mockRejectedValue({});
 
 		render(<AnimeInfoPage />);
 
