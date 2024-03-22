@@ -26,10 +26,12 @@ const HomePage = () => {
 			try {
 				const animeResponse = await fetch(animeUrl, options);
 				const animeResult = await animeResponse.json();
+				console.log('animes: ', animeResult);
 				setAnimes(animeResult.data);
 
 				const genresResponse = await fetch(genresUrl, options);
 				const genresResult = await genresResponse.json();
+				console.log('genres: ', genresResult);
 				const cleanResult = genresResult.filter(genre => genre._id !== 'Hentai');
 				setGenres(cleanResult);
 			} catch (error) {
@@ -48,11 +50,11 @@ const HomePage = () => {
 			<h1>Welcome to Julian's Anime List</h1>
 			<div>{genre ? <h2>Top {genre} Anime</h2> : <h2>Top Ranked Anime</h2>}</div>
 			<main className='container'>
-				<section className='genres-section'>
+				<section className='genres-section' role='genres-section'>
 					<Genres genres={genres} setGenre={setGenre} />
 				</section>
 				<section className='main-content'>
-					<div className='gallery-container'>
+					<div className='gallery-container' role='gallery-container'>
 						<Gallery animes={animes} />
 					</div>
 				</section>

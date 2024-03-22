@@ -36,7 +36,7 @@ const AnimeInfoPage = () => {
 	}, [displayAnime]);
 
 	return (
-		<div className='anime-info-container'>
+		<div className='anime-info-container' role='anime-info-container'>
 			<h2>{anime.title}</h2>
 			<h3>{anime.alternativeTitles}</h3>
 			<img src={anime.image} alt={anime.title} />
@@ -53,7 +53,7 @@ const AnimeInfoPage = () => {
 					<p key={genre}>{genre}</p>
 				))}
 			</div>
-			<div>
+			<div role='synopsis'>
 				<p>{anime.synopsis}</p>
 			</div>
 		</div>

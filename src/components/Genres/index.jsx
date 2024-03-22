@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import './Genres.css';
 
 const GenresPage = ({ genres, setGenre }) => {
@@ -7,7 +6,7 @@ const GenresPage = ({ genres, setGenre }) => {
 	};
 
 	return (
-		<>
+		<div role='genres-list'>
 			<p className='genre-tag' onClick={() => setGenre('')}>
 				All
 			</p>
@@ -16,7 +15,7 @@ const GenresPage = ({ genres, setGenre }) => {
 					{genre._id}
 				</p>
 			))}
-		</>
+		</div>
 	);
 };
 
