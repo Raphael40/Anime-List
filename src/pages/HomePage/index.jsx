@@ -26,12 +26,10 @@ const HomePage = () => {
 			try {
 				const animeResponse = await fetch(animeUrl, options);
 				const animeResult = await animeResponse.json();
-				console.log('animes: ', animeResult);
 				setAnimes(animeResult.data);
 
 				const genresResponse = await fetch(genresUrl, options);
 				const genresResult = await genresResponse.json();
-				console.log('genres: ', genresResult);
 				const cleanResult = genresResult.filter(genre => genre._id !== 'Hentai');
 				setGenres(cleanResult);
 			} catch (error) {
