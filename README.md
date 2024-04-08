@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-    A static site where you can view a list of anime, view the details of a single anime and search for anime. It has 100% test coverage on all major React components. This site is deployed and can be accessed here: <a href="https://anime-list-vdy4.onrender.com/" target="_blank">Manga API</a>
+    A static site where you can view a list of anime, view the details of a single anime and search for anime. It has 100% test coverage on all major React components. This site is deployed and can be accessed here: <a href="https://anime-list-vdy4.onrender.com/" target="_blank">Anime List</a>
 </p>
 
 ### Installation & Setup:
