@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useMemo } from 'react';
 
-import { Gallery } from '../../components';
-import { Genres } from '../../components';
+import { Gallery, Genres, Loading } from '../../components';
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
 const HomePage = () => {
+	const [isAnimeLoading, setIsAnimeLoading] = useState(true);
+	const [isGenresLoading, setIsGenresLoading] = useState(true);
 	const [animes, setAnimes] = useState([]);
 	const [genres, setGenres] = useState([]);
 	const [genre, setGenre] = useState('');
@@ -26,6 +27,7 @@ const HomePage = () => {
 				const animeResponse = await fetch(animeUrl, options);
 				const animeResult = await animeResponse.json();
 				setAnimes(animeResult.data);
+				setIsAnimeLoading(false);
 			} catch (error) {
 				console.error(error);
 			}
@@ -50,6 +52,9 @@ const HomePage = () => {
 				const genresResult = await genresResponse.json();
 				const cleanResult = genresResult.filter(genre => genre._id !== 'Hentai');
 				setGenres(cleanResult);
+				setTimeout(() => {
+					setIsGenresLoading(false);
+				}, 2000);
 			} catch (error) {
 				console.error(error);
 			}
@@ -64,6 +69,10 @@ const HomePage = () => {
 	useEffect(() => {
 		displayGenres();
 	}, []);
+
+	if (isAnimeLoading && isGenresLoading) {
+		return <Loading />;
+	}
 
 	return (
 		<>

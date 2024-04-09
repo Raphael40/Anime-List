@@ -4,6 +4,8 @@ import { Layout } from './components';
 import * as Pages from './pages';
 
 function App() {
+	// const [isLoading, setIsLoading] = useState(true);
+
 	return (
 		<>
 			<Routes>
