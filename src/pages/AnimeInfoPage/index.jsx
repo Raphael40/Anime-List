@@ -1,11 +1,14 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { Loading } from '../../components';
+
 import './AnimeInfoPage.css';
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
 const AnimeInfoPage = () => {
+	const [isLoading, setIsLoading] = useState(true);
 	const [anime, setAnime] = useState({ genres: [] });
 	const { id } = useParams();
 
@@ -24,6 +27,9 @@ const AnimeInfoPage = () => {
 				const response = await fetch(url, options);
 				const result = await response.json();
 				setAnime(result);
+				setTimeout(() => {
+					setIsLoading(false);
+				}, 2000);
 			} catch (error) {
 				console.error(error);
 			}
@@ -34,6 +40,10 @@ const AnimeInfoPage = () => {
 	useEffect(() => {
 		displayAnime();
 	}, [displayAnime]);
+
+	if (isLoading) {
+		return <Loading />;
+	}
 
 	return (
 		<div className='anime-info-container' role='anime-info-container'>

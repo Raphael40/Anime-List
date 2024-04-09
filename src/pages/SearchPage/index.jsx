@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import { Gallery, SearchForm } from '../../components';
+import { Gallery, SearchForm, Loading } from '../../components';
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
 const SearchPage = () => {
+	const [isLoading, setIsLoading] = useState(true);
 	const [inputValue, setInputValue] = useState('');
 	const [searchString, setSearchString] = useState('');
 	const [animes, setAnimes] = useState([]);
@@ -28,10 +29,14 @@ const SearchPage = () => {
 				console.error(error);
 			}
 		};
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 2000);
 		searchApi();
 	}, [searchString]);
 
 	const handleSubmit = e => {
+		setIsLoading(false);
 		e.preventDefault();
 		setSearchString(inputValue);
 		setInputValue('');
@@ -41,6 +46,10 @@ const SearchPage = () => {
 		const newInput = e.target.value;
 		setInputValue(newInput);
 	};
+
+	if (isLoading) {
+		return <Loading />;
+	}
 
 	return (
 		<>
