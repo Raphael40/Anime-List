@@ -22,7 +22,7 @@ describe('HomePage component', () => {
 		cleanup();
 	});
 
-	it('renders a genres-section and a gallery-container', () => {
+	it('renders a genres-section and a gallery-container', async () => {
 		const genres = [{ _id: 'Test Genre' }, { _id: 'Second Test Genre' }];
 
 		const animes = {
@@ -49,8 +49,8 @@ describe('HomePage component', () => {
 			</BrowserRouter>
 		);
 
-		const genresContainer = screen.getByRole('genres-section');
-		const galleryContainer = screen.getByRole('gallery-container');
+		const genresContainer = await screen.findByRole('genres-section');
+		const galleryContainer = await screen.findByRole('gallery-container');
 
 		expect(genresContainer).toBeInTheDocument();
 		expect(galleryContainer).toBeInTheDocument();

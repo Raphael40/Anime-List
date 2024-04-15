@@ -22,7 +22,7 @@ describe('SearchPage component', () => {
 		cleanup();
 	});
 
-	it('renders a search-form-container and a gallery-container', () => {
+	it('renders a search-form-container and a gallery-container', async () => {
 		const animes = {
 			data: [
 				{
@@ -46,8 +46,8 @@ describe('SearchPage component', () => {
 			</BrowserRouter>
 		);
 
-		const searchContainer = screen.getByRole('search-form-container');
-		const galleryContainer = screen.getByRole('search-form-container');
+		const searchContainer = await screen.findByRole('search-form-container');
+		const galleryContainer = await screen.findByRole('search-form-container');
 
 		expect(searchContainer).toBeInTheDocument();
 		expect(galleryContainer).toBeInTheDocument();

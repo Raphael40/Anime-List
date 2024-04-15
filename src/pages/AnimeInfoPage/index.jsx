@@ -27,9 +27,10 @@ const AnimeInfoPage = () => {
 				const response = await fetch(url, options);
 				const result = await response.json();
 				setAnime(result);
-				setTimeout(() => {
+
+				if (anime) {
 					setIsLoading(false);
-				}, 2000);
+				}
 			} catch (error) {
 				console.error(error);
 			}

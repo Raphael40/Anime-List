@@ -29,9 +29,9 @@ const SearchPage = () => {
 				console.error(error);
 			}
 		};
-		setTimeout(() => {
+		if (animes) {
 			setIsLoading(false);
-		}, 2000);
+		}
 		searchApi();
 	}, [searchString]);
 

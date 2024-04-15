@@ -1,5 +1,5 @@
 import { beforeEach, afterEach, describe, it, expect, vi } from 'vitest';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 
 import * as matchers from '@testing-library/jest-dom/matchers';
 expect.extend(matchers);
@@ -29,7 +29,7 @@ describe('AnimeInfoPage component', () => {
 		cleanup();
 	});
 
-	it('renders an anime-info-container', () => {
+	it('renders an anime-info-container', async () => {
 		const animeData = {
 			_id: '4040',
 			title: 'Test Anime',
@@ -44,7 +44,7 @@ describe('AnimeInfoPage component', () => {
 
 		render(<AnimeInfoPage />);
 
-		const container = screen.getByRole('anime-info-container');
+		const container = await screen.findByRole('anime-info-container');
 
 		expect(container).toBeInTheDocument();
 	});

@@ -27,7 +27,9 @@ const HomePage = () => {
 				const animeResponse = await fetch(animeUrl, options);
 				const animeResult = await animeResponse.json();
 				setAnimes(animeResult.data);
-				setIsAnimeLoading(false);
+				if (animes) {
+					setIsAnimeLoading(false);
+				}
 			} catch (error) {
 				console.error(error);
 			}
@@ -52,9 +54,9 @@ const HomePage = () => {
 				const genresResult = await genresResponse.json();
 				const cleanResult = genresResult.filter(genre => genre._id !== 'Hentai');
 				setGenres(cleanResult);
-				setTimeout(() => {
+				if (genres) {
 					setIsGenresLoading(false);
-				}, 2000);
+				}
 			} catch (error) {
 				console.error(error);
 			}
