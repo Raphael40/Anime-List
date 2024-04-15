@@ -10,28 +10,29 @@ const SearchPage = () => {
 	const [searchString, setSearchString] = useState('');
 	const [animes, setAnimes] = useState([]);
 
-	useEffect(() => {
-		const searchApi = async () => {
-			const url = `https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=${searchString}&sortBy=ranking&sortOrder=asc`;
-			const options = {
-				method: 'GET',
-				headers: {
-					'X-RapidAPI-Key': `${apiKey}`,
-					'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
-				}
-			};
-
-			try {
-				const response = await fetch(url, options);
-				const result = await response.json();
-				setAnimes(result.data);
-			} catch (error) {
-				console.error(error);
+	const searchApi = async () => {
+		const url = `https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=${searchString}&sortBy=ranking&sortOrder=asc`;
+		const options = {
+			method: 'GET',
+			headers: {
+				'X-RapidAPI-Key': `${apiKey}`,
+				'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
 			}
 		};
-		if (animes) {
-			setIsLoading(false);
+
+		try {
+			const response = await fetch(url, options);
+			const result = await response.json();
+			setAnimes(result.data);
+			if (animes) {
+				setIsLoading(false);
+			}
+		} catch (error) {
+			console.error(error);
 		}
+	};
+
+	useEffect(() => {
 		searchApi();
 	}, [searchString]);
 

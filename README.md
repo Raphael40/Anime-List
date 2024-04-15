@@ -44,6 +44,6 @@ npm run coverage
 - **Vite**: Minimalist Node.js web framework used to run server.
 - **Vitest**: Jest for JavaScript testing and Supertest for HTTP server testing.
 
-Api from Rapid Api: [anime-db](https://rapidapi.com/brian.rofiq/api/anime-db)
+This app uses a third party Api from Rapid Api: [anime-db](https://rapidapi.com/brian.rofiq/api/anime-db)
 
 **Enjoy!**
