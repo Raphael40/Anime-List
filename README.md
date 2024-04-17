@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-    A static site where you can view a list of anime, view the details of a single anime and search for anime. It has 100% test coverage on all major React components. This site is deployed and can be accessed here: <a href="https://anime-list-vdy4.onrender.com/" target="_blank">Anime List</a> (If the page fails to load the thrid party api may be down, please revisit later) 
+    A static site where you can view a list of anime, view the details of a single anime and search for anime. It has 100% test coverage on all major React components. This site is deployed and can be accessed here: <a href="https://anime-list-vdy4.onrender.com/" target="_blank">Anime List</a> (If the page fails to load the third party api may be down, please revisit later or check out the old version linked below) 
 </p>
 
 ### Installation & Setup:
@@ -44,6 +44,9 @@ npm run coverage
 - **Vite**: Minimalist Node.js web framework used to run server.
 - **Vitest**: Jest for JavaScript testing and Supertest for HTTP server testing.
 
-This app uses a third party Api from Rapid Api: [anime-db](https://rapidapi.com/brian.rofiq/api/anime-db)
+This app uses a third party Api from Rapid Api: [anime-db](https://rapidapi.com/felixeschmittfes/api/myanimelist/)
+
+An old version of the website is available [here](https://anime-list-old.onrender.com/)
+This version uses a different API that had poor service
 
 **Enjoy!**
