@@ -2,10 +2,12 @@ import './Filters.css';
 
 const Filters = ({ filters, setFilter }) => {
 	const handleClick = filter => {
-		setFilter(filter);
+		if (filter === 'popular') {
+			setFilter('bypopularity');
+		} else {
+			setFilter(filter);
+		}
 	};
-
-	console.log(filters);
 
 	return (
 		<div role='genres-list' className='filters-container'>

@@ -9,7 +9,7 @@ const filters = [
 	{ _id: 'airing' },
 	{ _id: 'upcoming' },
 	{ _id: 'tv' },
-	{ _id: 'movies' },
+	{ _id: 'movie' },
 	{ _id: 'popular' }
 ];
 
