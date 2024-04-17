@@ -22,26 +22,21 @@ describe('HomePage component', () => {
 		cleanup();
 	});
 
-	it('renders a genres-section and a gallery-container', async () => {
-		const genres = [{ _id: 'Test Genre' }, { _id: 'Second Test Genre' }];
-
-		const animes = {
-			data: [
-				{
-					_id: '4040',
-					title: 'Test Anime',
-					image: '../../../public/Electric-Grape.png'
-				},
-				{
-					_id: '8080',
-					title: 'Test Anime 2',
-					image: '../../../public/Electric-Grape.png'
-				}
-			]
-		};
+	it('renders a sidebar-section and a anime-section', async () => {
+		const animes = [
+			{
+				myanimelist_id: '4040',
+				title: 'Test Anime',
+				picture_url: '../../../public/Electric-Grape.png'
+			},
+			{
+				myanimelist_id: '8080',
+				title: 'Test Anime 2',
+				picture_url: '../../../public/Electric-Grape.png'
+			}
+		];
 
 		fetch.mockResolvedValueOnce(createFetchResponse(animes));
-		fetch.mockResolvedValueOnce(createFetchResponse(genres));
 
 		render(
 			<BrowserRouter>
@@ -49,33 +44,28 @@ describe('HomePage component', () => {
 			</BrowserRouter>
 		);
 
-		const genresContainer = await screen.findByRole('genres-section');
-		const galleryContainer = await screen.findByRole('gallery-container');
+		const filtersSection = await screen.findByRole('filters-section');
+		const animeSection = await screen.findByRole('anime-section');
 
-		expect(genresContainer).toBeInTheDocument();
-		expect(galleryContainer).toBeInTheDocument();
+		expect(filtersSection).toBeInTheDocument();
+		expect(animeSection).toBeInTheDocument();
 	});
 
-	it('renders animes and genres from the api on page load', async () => {
-		const genres = [{ _id: 'Test Genre' }, { _id: 'Second Test Genre' }];
-
-		const animes = {
-			data: [
-				{
-					_id: '4040',
-					title: 'Test Anime',
-					image: '../../../public/Electric-Grape.png'
-				},
-				{
-					_id: '8080',
-					title: 'Test Anime 2',
-					image: '../../../public/Electric-Grape.png'
-				}
-			]
-		};
+	it('renders animes from the api on page load', async () => {
+		const animes = [
+			{
+				myanimelist_id: '4040',
+				title: 'Test Anime',
+				picture_url: '../../../public/Electric-Grape.png'
+			},
+			{
+				myanimelist_id: '8080',
+				title: 'Test Anime 2',
+				picture_url: '../../../public/Electric-Grape.png'
+			}
+		];
 
 		fetch.mockResolvedValueOnce(createFetchResponse(animes));
-		fetch.mockResolvedValueOnce(createFetchResponse(genres));
 
 		render(
 			<BrowserRouter>
@@ -83,52 +73,33 @@ describe('HomePage component', () => {
 			</BrowserRouter>
 		);
 
-		expect(fetch).toHaveBeenCalledWith(
-			`https://anime-db.p.rapidapi.com/anime?page=1&size=30&genres=&sortBy=ranking&sortOrder=asc`,
-			{
-				method: 'GET',
-				headers: {
-					'X-RapidAPI-Key': `${apiKey}`,
-					'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
-				}
-			}
-		);
-
-		expect(fetch).toHaveBeenCalledWith(`https://anime-db.p.rapidapi.com/genre`, {
+		expect(fetch).toHaveBeenCalledWith(`https://myanimelist.p.rapidapi.com/anime/top/all`, {
 			method: 'GET',
 			headers: {
 				'X-RapidAPI-Key': `${apiKey}`,
-				'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
+				'X-RapidAPI-Host': 'myanimelist.p.rapidapi.com'
 			}
 		});
-
-		const genreText = await screen.findByText('Test Genre');
-		expect(genreText).toBeInTheDocument();
 
 		const galleryImage = await screen.findByAltText('Test Anime');
 		expect(galleryImage).toHaveClass('gallery-image');
 	});
 
-	it('renders new anime from the api after selecting a genre', async () => {
-		const genres = [{ _id: 'Test Genre' }, { _id: 'Second Test Genre' }];
-
-		const animes = {
-			data: [
-				{
-					_id: '4040',
-					title: 'Test Anime',
-					image: '../../../public/Electric-Grape.png'
-				},
-				{
-					_id: '8080',
-					title: 'Test Anime 2',
-					image: '../../../public/Electric-Grape.png'
-				}
-			]
-		};
+	it('renders new anime from the api after selecting a filter', async () => {
+		const animes = [
+			{
+				myanimelist_id: '4040',
+				title: 'Test Anime',
+				picture_url: '../../../public/Electric-Grape.png'
+			},
+			{
+				myanimelist_id: '8080',
+				title: 'Test Anime 2',
+				picture_url: '../../../public/Electric-Grape.png'
+			}
+		];
 
 		fetch.mockResolvedValueOnce(createFetchResponse(animes));
-		fetch.mockResolvedValueOnce(createFetchResponse(genres));
 
 		render(
 			<BrowserRouter>
@@ -139,64 +110,54 @@ describe('HomePage component', () => {
 		const galleryImage = await screen.findByAltText('Test Anime');
 		expect(galleryImage).toHaveClass('gallery-image');
 
-		const filteredAnimes = {
-			data: [
-				{
-					_id: '6060',
-					title: 'Filtered Anime',
-					image: '../../../public/Electric-Grape.png'
-				},
-				{
-					_id: '1000',
-					title: 'Filtered Anime 2',
-					image: '../../../public/Electric-Grape.png'
-				}
-			]
-		};
+		const filteredAnimes = [
+			{
+				myanimelist_id: '6060',
+				title: 'Filtered Test Anime',
+				picture_url: '../../../public/Electric-Grape.png'
+			},
+			{
+				myanimelist_id: '1010',
+				title: 'Filtered Test Anime 2',
+				picture_url: '../../../public/Electric-Grape.png'
+			}
+		];
 
-		const genreText = await screen.findByText('Test Genre');
-		expect(genreText).toBeInTheDocument();
+		const filterText = await screen.findByText('movies');
+		expect(filterText).toBeInTheDocument();
 
 		fetch.mockResolvedValue(createFetchResponse(filteredAnimes));
 
-		await userEvent.click(genreText);
+		await userEvent.click(filterText);
 
-		expect(fetch).toHaveBeenCalledWith(
-			`https://anime-db.p.rapidapi.com/anime?page=1&size=30&genres=&sortBy=ranking&sortOrder=asc`,
-			{
-				method: 'GET',
-				headers: {
-					'X-RapidAPI-Key': `${apiKey}`,
-					'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
-				}
+		expect(fetch).toHaveBeenCalledWith(`https://myanimelist.p.rapidapi.com/anime/top/movies`, {
+			method: 'GET',
+			headers: {
+				'X-RapidAPI-Key': `${apiKey}`,
+				'X-RapidAPI-Host': 'myanimelist.p.rapidapi.com'
 			}
-		);
+		});
 
-		const filteredGalleryImage = await screen.findByAltText('Filtered Anime');
+		const filteredGalleryImage = await screen.findByAltText('Filtered Test Anime');
 		expect(filteredGalleryImage).toBeInTheDocument();
 		expect(filteredGalleryImage).toHaveClass('gallery-image');
 	});
 
 	it('returns an error when the fetch fails', async () => {
-		const genres = [{ _id: 'Test Genre' }, { _id: 'Second Test Genre' }];
-
-		const animes = {
-			data: [
-				{
-					_id: '4040',
-					title: 'Test Anime',
-					image: '../../../public/Electric-Grape.png'
-				},
-				{
-					_id: '8080',
-					title: 'Test Anime 2',
-					image: '../../../public/Electric-Grape.png'
-				}
-			]
-		};
+		const animes = [
+			{
+				myanimelist_id: '4040',
+				title: 'Test Anime',
+				picture_url: '../../../public/Electric-Grape.png'
+			},
+			{
+				myanimelist_id: '8080',
+				title: 'Test Anime 2',
+				picture_url: '../../../public/Electric-Grape.png'
+			}
+		];
 
 		fetch.mockResolvedValueOnce(createFetchResponse(animes));
-		fetch.mockResolvedValueOnce(createFetchResponse(genres));
 
 		render(
 			<BrowserRouter>
@@ -207,23 +168,20 @@ describe('HomePage component', () => {
 		const galleryImage = await screen.findByAltText('Test Anime');
 		expect(galleryImage).toHaveClass('gallery-image');
 
-		const genreText = await screen.findByText('Test Genre');
-		expect(genreText).toBeInTheDocument();
+		const filterText = await screen.findByText('movies');
+		expect(filterText).toBeInTheDocument();
 
 		fetch.mockRejectedValueOnce(createFetchResponse({}));
 
-		await userEvent.click(genreText);
+		await userEvent.click(filterText);
 
-		expect(fetch).toHaveBeenCalledWith(
-			`https://anime-db.p.rapidapi.com/anime?page=1&size=30&genres=&sortBy=ranking&sortOrder=asc`,
-			{
-				method: 'GET',
-				headers: {
-					'X-RapidAPI-Key': `${apiKey}`,
-					'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
-				}
+		expect(fetch).toHaveBeenCalledWith(`https://myanimelist.p.rapidapi.com/anime/top/all`, {
+			method: 'GET',
+			headers: {
+				'X-RapidAPI-Key': `${apiKey}`,
+				'X-RapidAPI-Host': 'myanimelist.p.rapidapi.com'
 			}
-		);
+		});
 
 		try {
 			await screen.findByAltText('Filtered Anime');

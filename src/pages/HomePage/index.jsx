@@ -1,32 +1,39 @@
 import React, { useEffect, useState, useMemo } from 'react';
 
-import { Gallery, Genres, Loading } from '../../components';
+import { Gallery, Filters, Loading } from '../../components';
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
+const filters = [
+	{ _id: 'all' },
+	{ _id: 'airing' },
+	{ _id: 'upcoming' },
+	{ _id: 'tv' },
+	{ _id: 'movies' },
+	{ _id: 'popular' }
+];
+
 const HomePage = () => {
 	const [isAnimeLoading, setIsAnimeLoading] = useState(true);
-	const [isGenresLoading, setIsGenresLoading] = useState(true);
 	const [animes, setAnimes] = useState([]);
-	const [genres, setGenres] = useState([]);
-	const [genre, setGenre] = useState('');
+	const [filter, setFilter] = useState('all');
 
 	const displayAnime = useMemo(
 		() => async () => {
-			const animeUrl = `https://anime-db.p.rapidapi.com/anime?page=1&size=30&genres=${genre}&sortBy=ranking&sortOrder=asc`;
+			const animeUrl = `https://myanimelist.p.rapidapi.com/anime/top/${filter}`;
 
 			const options = {
 				method: 'GET',
 				headers: {
 					'X-RapidAPI-Key': `${apiKey}`,
-					'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
+					'X-RapidAPI-Host': 'myanimelist.p.rapidapi.com'
 				}
 			};
 
 			try {
 				const animeResponse = await fetch(animeUrl, options);
 				const animeResult = await animeResponse.json();
-				setAnimes(animeResult.data);
+				setAnimes(animeResult);
 				if (animes) {
 					setIsAnimeLoading(false);
 				}
@@ -34,58 +41,27 @@ const HomePage = () => {
 				console.error(error);
 			}
 		},
-		[genre]
-	);
-
-	const displayGenres = useMemo(
-		() => async () => {
-			const genresUrl = 'https://anime-db.p.rapidapi.com/genre';
-
-			const options = {
-				method: 'GET',
-				headers: {
-					'X-RapidAPI-Key': `${apiKey}`,
-					'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
-				}
-			};
-
-			try {
-				const genresResponse = await fetch(genresUrl, options);
-				const genresResult = await genresResponse.json();
-				const cleanResult = genresResult.filter(genre => genre._id !== 'Hentai');
-				setGenres(cleanResult);
-				if (genres) {
-					setIsGenresLoading(false);
-				}
-			} catch (error) {
-				console.error(error);
-			}
-		},
-		[genre]
+		[filter]
 	);
 
 	useEffect(() => {
 		displayAnime();
 	}, [displayAnime]);
 
-	useEffect(() => {
-		displayGenres();
-	}, []);
-
-	if (isAnimeLoading && isGenresLoading) {
+	if (isAnimeLoading) {
 		return <Loading />;
 	}
 
 	return (
 		<>
 			<h1>Welcome to Julian's Anime List</h1>
-			<div>{genre ? <h2>Top {genre} Anime</h2> : <h2>Top Ranked Anime</h2>}</div>
+			<div>{filter !== 'all' ? <h2>Top {filter} Anime</h2> : <h2>Top Anime</h2>}</div>
 			<main className='container'>
-				<section className='genres-section' role='genres-section'>
-					<Genres genres={genres} setGenre={setGenre} />
+				<section role='filters-section'>
+					<Filters filters={filters} setFilter={setFilter} />
 				</section>
-				<section className='main-content'>
-					<div className='gallery-container' role='gallery-container'>
+				<section className='anime-section' role='anime-section'>
+					<div className='gallery-container'>
 						<Gallery animes={animes} />
 					</div>
 				</section>
