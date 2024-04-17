@@ -37,7 +37,7 @@ describe('AnimeInfoPage component', () => {
 			picture_url: '../../../public/Electric-Grape.png',
 			synopsis: 'Data for testing',
 			statistics: { ranked: 1 },
-			information: { genres: ['test'] }
+			information: { genres: [{ name: ['test'] }] }
 		};
 
 		fetch.mockResolvedValue(createFetchResponse(animeData));
@@ -57,7 +57,7 @@ describe('AnimeInfoPage component', () => {
 			picture_url: '../../../public/Electric-Grape.png',
 			synopsis: 'Data for testing',
 			statistics: { ranked: 1 },
-			information: { genres: ['test'] }
+			information: { genres: [{ name: ['test'] }] }
 		};
 
 		fetch.mockResolvedValue(createFetchResponse(animeData));

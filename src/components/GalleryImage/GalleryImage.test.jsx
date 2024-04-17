@@ -9,7 +9,7 @@ expect.extend(matchers);
 import GalleryImage from '.';
 
 const anime = {
-	_id: '4040',
+	myanimelist_id: '4040',
 	title: 'Test Anime',
 	image: '../../../public/Electric-Grape.png',
 	synopsis: 'Data for testing'

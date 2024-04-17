@@ -43,7 +43,6 @@ const HomePage = () => {
 		return <Loading />;
 	}
 
-	console.log(animes);
 	return (
 		<>
 			<h1>Welcome to Julian's Anime List</h1>
