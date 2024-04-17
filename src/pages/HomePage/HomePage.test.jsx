@@ -123,14 +123,14 @@ describe('HomePage component', () => {
 			}
 		];
 
-		const filterText = await screen.findByText('movies');
+		const filterText = await screen.findByText('Movie');
 		expect(filterText).toBeInTheDocument();
 
 		fetch.mockResolvedValue(createFetchResponse(filteredAnimes));
 
 		await userEvent.click(filterText);
 
-		expect(fetch).toHaveBeenCalledWith(`https://myanimelist.p.rapidapi.com/anime/top/movies`, {
+		expect(fetch).toHaveBeenCalledWith(`https://myanimelist.p.rapidapi.com/anime/top/movie`, {
 			method: 'GET',
 			headers: {
 				'X-RapidAPI-Key': `${apiKey}`,
@@ -168,7 +168,7 @@ describe('HomePage component', () => {
 		const galleryImage = await screen.findByAltText('Test Anime');
 		expect(galleryImage).toHaveClass('gallery-image');
 
-		const filterText = await screen.findByText('movies');
+		const filterText = await screen.findByText('Movie');
 		expect(filterText).toBeInTheDocument();
 
 		fetch.mockRejectedValueOnce(createFetchResponse({}));

@@ -10,13 +10,13 @@ import Gallery from '.';
 
 const animes = [
 	{
-		_id: '4040',
+		myanimelist_id: '4040',
 		title: 'Test Anime',
 		image: '../../../public/Electric-Grape.png',
 		synopsis: 'Data for testing'
 	},
 	{
-		_id: '8080',
+		myanimelist_id: '8080',
 		title: 'Test Anime 2',
 		image: '../../../public/Electric-Grape.png',
 		synopsis: 'Data for testing'

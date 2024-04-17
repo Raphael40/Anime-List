@@ -31,6 +31,7 @@ describe('AnimeInfoPage component', () => {
 
 	it('renders an anime-info-container', async () => {
 		const animeData = {
+			myanimelist_id: '4040',
 			title_ov: 'Test Anime',
 			alternative_titles: { english: 'Tests' },
 			picture_url: '../../../public/Electric-Grape.png',
@@ -50,6 +51,7 @@ describe('AnimeInfoPage component', () => {
 
 	it('renders an anime from the api on the page', async () => {
 		const animeData = {
+			myanimelist_id: '4040',
 			title_ov: 'Test Anime',
 			alternative_titles: { english: 'Tests' },
 			picture_url: '../../../public/Electric-Grape.png',

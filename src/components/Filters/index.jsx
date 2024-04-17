@@ -1,16 +1,26 @@
 import './Filters.css';
 
-const Filters = ({ filters, setFilter }) => {
+const filters = [
+	{ _id: 'All' },
+	{ _id: 'Airing' },
+	{ _id: 'Upcoming' },
+	{ _id: 'TV' },
+	{ _id: 'Movie' },
+	{ _id: 'Popular' }
+];
+
+const Filters = ({ setFilter }) => {
 	const handleClick = filter => {
-		if (filter === 'popular') {
+		const lowerCaseFilter = filter.toLowerCase();
+		if (lowerCaseFilter === 'popular') {
 			setFilter('bypopularity');
 		} else {
-			setFilter(filter);
+			setFilter(lowerCaseFilter);
 		}
 	};
 
 	return (
-		<div role='genres-list' className='filters-container'>
+		<div role='filters-list' className='filters-container'>
 			{filters.map(filter => (
 				<p className='filter-tag' onClick={() => handleClick(filter._id)} key={filter._id}>
 					{filter._id}

@@ -4,15 +4,6 @@ import { Gallery, Filters, Loading } from '../../components';
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
-const filters = [
-	{ _id: 'all' },
-	{ _id: 'airing' },
-	{ _id: 'upcoming' },
-	{ _id: 'tv' },
-	{ _id: 'movie' },
-	{ _id: 'popular' }
-];
-
 const HomePage = () => {
 	const [isAnimeLoading, setIsAnimeLoading] = useState(true);
 	const [animes, setAnimes] = useState([]);
@@ -52,13 +43,14 @@ const HomePage = () => {
 		return <Loading />;
 	}
 
+	console.log(animes);
 	return (
 		<>
 			<h1>Welcome to Julian's Anime List</h1>
 			<div>{filter !== 'all' ? <h2>Top {filter} Anime</h2> : <h2>Top Anime</h2>}</div>
 			<main className='container'>
 				<section role='filters-section'>
-					<Filters filters={filters} setFilter={setFilter} />
+					<Filters setFilter={setFilter} />
 				</section>
 				<section className='anime-section' role='anime-section'>
 					<div className='gallery-container'>
