@@ -8,7 +8,7 @@ const SearchForm = ({ inputValue, handleSubmit, handleInput }) => {
 					type='text'
 					onChange={handleInput}
 					value={inputValue}
-					placeholder='Berserk'
+					placeholder='One Piece'
 					required
 				/>
 				<input type='submit' value='Search' />

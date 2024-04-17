@@ -7,23 +7,23 @@ const apiKey = import.meta.env.VITE_API_KEY;
 const SearchPage = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [inputValue, setInputValue] = useState('');
-	const [searchString, setSearchString] = useState('');
+	const [searchString, setSearchString] = useState('one piece');
 	const [animes, setAnimes] = useState([]);
 
 	const searchApi = async () => {
-		const url = `https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=${searchString}&sortBy=ranking&sortOrder=asc`;
+		const url = `https://myanimelist.p.rapidapi.com/v2/anime/search?q=${searchString}&n=50`;
 		const options = {
 			method: 'GET',
 			headers: {
 				'X-RapidAPI-Key': `${apiKey}`,
-				'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
+				'X-RapidAPI-Host': 'myanimelist.p.rapidapi.com'
 			}
 		};
 
 		try {
 			const response = await fetch(url, options);
 			const result = await response.json();
-			setAnimes(result.data);
+			setAnimes(result);
 			if (animes) {
 				setIsLoading(false);
 			}

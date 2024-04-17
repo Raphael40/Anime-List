@@ -5,7 +5,7 @@ const Gallery = ({ animes }) => {
 	return (
 		<div className='gallery' role='gallery'>
 			{animes.map(anime => (
-				<GalleryImage anime={anime} key={anime._id} />
+				<GalleryImage anime={anime} key={anime.myanimelist_id} />
 			))}
 		</div>
 	);
