@@ -47,7 +47,7 @@ const HomePage = () => {
 		<>
 			<h1>Welcome to Julian's Anime List</h1>
 			<div>{filter !== 'all' ? <h2>Top {filter} Anime</h2> : <h2>Top Anime</h2>}</div>
-			<main className='container'>
+			<main className='container' role='container'>
 				<section role='filters-section'>
 					<Filters setFilter={setFilter} />
 				</section>
