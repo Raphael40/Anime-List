@@ -10,22 +10,17 @@ const apiKey = import.meta.env.VITE_API_KEY;
 
 const AnimeInfoPage = () => {
 	const [isLoading, setIsLoading] = useState(true);
-	const [anime, setAnime] = useState(
-		{ alternative_titles: {} },
-		{ information: {} },
-		{ statistics: {} },
-		{ characters: [] }
-	);
+	const [anime, setAnime] = useState({ alternativeTitles: {}, genres: {} });
 	const { id } = useParams();
 
 	const displayAnime = useMemo(
 		() => async () => {
-			const url = `https://myanimelist.p.rapidapi.com/anime/${id}`;
+			const url = `https://anime-db.p.rapidapi.com/anime/by-id/${id}`;
 			const options = {
 				method: 'GET',
 				headers: {
 					'X-RapidAPI-Key': `${apiKey}`,
-					'X-RapidAPI-Host': 'myanimelist.p.rapidapi.com'
+					'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
 				}
 			};
 
@@ -59,23 +54,19 @@ const AnimeInfoPage = () => {
 
 	return (
 		<div className='anime-info-container' role='anime-info-container'>
-			<h2>{anime.title_ov}</h2>
-			<h3>{anime.alternative_titles.english}</h3>
-			<img src={anime.picture_url} alt={anime.title_en} />
+			<h2>{anime.title}</h2>
+			<img src={anime.image} alt={anime.title_en} />
 			<div className='rankingContainer'>
 				<p>
-					<strong>Rank:</strong> {anime.statistics.ranked}
-				</p>
-				<p>
-					<strong>Score:</strong> {anime.statistics.score}
+					<strong>Rank:</strong> {anime.ranking}
 				</p>
 			</div>
 			<div className='genresContainer'>
 				<p>
 					<strong>Genres:</strong>
 				</p>
-				{anime.information.genres.map(genre => (
-					<p key={genre.name}>{genre.name}</p>
+				{anime.genres.map(genre => (
+					<p key={genre}>{genre}</p>
 				))}
 			</div>
 			<div role='synopsis'>

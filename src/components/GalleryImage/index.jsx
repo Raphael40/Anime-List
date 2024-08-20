@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom';
 import './GalleryImage.css';
 
 const GalleryImage = ({ anime }) => {
+	console.log(anime);
 	return (
 		<div className='gallery-image-container' role='gallery-image-container'>
-			<Link to={`/${anime.myanimelist_id}`} key={anime.myanimelist_id}>
+			<Link to={`/${anime._id}`} key={anime._id}>
 				<img src={anime.image} alt={anime.title} className='gallery-image' />
 			</Link>
 		</div>

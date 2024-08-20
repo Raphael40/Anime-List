@@ -31,13 +31,12 @@ describe('AnimeInfoPage component', () => {
 
 	it('renders an anime-info-container', async () => {
 		const animeData = {
-			myanimelist_id: '4040',
-			title_ov: 'Test Anime',
-			alternative_titles: { english: 'Tests' },
-			picture_url: '../../../public/Electric-Grape.png',
+			_id: '4040',
+			title: 'Test Anime',
+			image: '../../../public/Electric-Grape.png',
 			synopsis: 'Data for testing',
-			statistics: { ranked: 1 },
-			information: { genres: [{ name: ['test'] }] }
+			ranking: 1,
+			genres: ['test']
 		};
 
 		fetch.mockResolvedValue(createFetchResponse(animeData));
@@ -51,30 +50,28 @@ describe('AnimeInfoPage component', () => {
 
 	it('renders an anime from the api on the page', async () => {
 		const animeData = {
-			myanimelist_id: '4040',
-			title_ov: 'Test Anime',
-			alternative_titles: { english: 'Tests' },
-			picture_url: '../../../public/Electric-Grape.png',
+			_id: '4040',
+			title: 'Test Anime',
+			image: '../../../public/Electric-Grape.png',
 			synopsis: 'Data for testing',
-			statistics: { ranked: 1 },
-			information: { genres: [{ name: ['test'] }] }
+			ranking: 1,
+			genres: ['test']
 		};
 
 		fetch.mockResolvedValue(createFetchResponse(animeData));
 
 		render(<AnimeInfoPage />);
 
-		expect(fetch).toHaveBeenCalledWith(`https://myanimelist.p.rapidapi.com/anime/4040`, {
+		expect(fetch).toHaveBeenCalledWith(`https://anime-db.p.rapidapi.com/anime/by-id/4040`, {
 			method: 'GET',
 			headers: {
 				'X-RapidAPI-Key': `${apiKey}`,
-				'X-RapidAPI-Host': 'myanimelist.p.rapidapi.com'
+				'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
 			}
 		});
 
 		const anime = await screen.findAllByRole('heading');
 		expect(anime[0]).toContainHTML('<h2>Test Anime</h2>');
-		expect(anime[1]).toContainHTML('<h3>Tests</h3>');
 
 		const synopsis = await screen.findByRole('synopsis');
 		expect(synopsis.childNodes[0].textContent).toBe('Data for testing');
@@ -85,11 +82,11 @@ describe('AnimeInfoPage component', () => {
 
 		render(<AnimeInfoPage />);
 
-		expect(fetch).toHaveBeenCalledWith(`https://myanimelist.p.rapidapi.com/anime/4040`, {
+		expect(fetch).toHaveBeenCalledWith(`https://anime-db.p.rapidapi.com/anime/by-id/4040`, {
 			method: 'GET',
 			headers: {
 				'X-RapidAPI-Key': `${apiKey}`,
-				'X-RapidAPI-Host': 'myanimelist.p.rapidapi.com'
+				'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
 			}
 		});
 
