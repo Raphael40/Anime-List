@@ -23,20 +23,22 @@ describe('SearchPage component', () => {
 	});
 
 	it('renders a search-form-container and a gallery-container', async () => {
-		const animes = [
-			{
-				myanimelist_id: '4040',
-				title: 'Test Anime',
-				image: '../../../public/Electric-Grape.png',
-				synopsis: 'Data for testing'
-			},
-			{
-				myanimelist_id: '8080',
-				title: 'Test Anime 2',
-				image: '../../../public/Electric-Grape.png',
-				synopsis: 'Data for testing'
-			}
-		];
+		const animes = {
+			data: [
+				{
+					_id: '4040',
+					title: 'Test Anime',
+					image: '../../../public/Electric-Grape.png',
+					synopsis: 'Data for testing'
+				},
+				{
+					_id: '8080',
+					title: 'Test Anime 2',
+					image: '../../../public/Electric-Grape.png',
+					synopsis: 'Data for testing'
+				}
+			]
+		};
 
 		fetch.mockResolvedValueOnce(createFetchResponse(animes));
 
@@ -54,20 +56,22 @@ describe('SearchPage component', () => {
 	});
 
 	it('renders animes from the api on page load', async () => {
-		const animes = [
-			{
-				myanimelist_id: '4040',
-				title: 'Test Anime',
-				image: '../../../public/Electric-Grape.png',
-				synopsis: 'Data for testing'
-			},
-			{
-				myanimelist_id: '8080',
-				title: 'Test Anime 2',
-				image: '../../../public/Electric-Grape.png',
-				synopsis: 'Data for testing'
-			}
-		];
+		const animes = {
+			data: [
+				{
+					_id: '4040',
+					title: 'Test Anime',
+					image: '../../../public/Electric-Grape.png',
+					synopsis: 'Data for testing'
+				},
+				{
+					_id: '8080',
+					title: 'Test Anime 2',
+					image: '../../../public/Electric-Grape.png',
+					synopsis: 'Data for testing'
+				}
+			]
+		};
 
 		fetch.mockResolvedValue(createFetchResponse(animes));
 
@@ -78,12 +82,12 @@ describe('SearchPage component', () => {
 		);
 
 		expect(fetch).toHaveBeenCalledWith(
-			`https://myanimelist.p.rapidapi.com/v2/anime/search?q=one piece&n=50`,
+			`https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=one piece&sortBy=ranking&sortOrder=asc`,
 			{
 				method: 'GET',
 				headers: {
 					'X-RapidAPI-Key': `${apiKey}`,
-					'X-RapidAPI-Host': 'myanimelist.p.rapidapi.com'
+					'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
 				}
 			}
 		);
@@ -96,20 +100,22 @@ describe('SearchPage component', () => {
 	});
 
 	it('renders new animes from the api after searching', async () => {
-		const animes = [
-			{
-				myanimelist_id: '4040',
-				title: 'Test Anime',
-				image: '../../../public/Electric-Grape.png',
-				synopsis: 'Data for testing'
-			},
-			{
-				myanimelist_id: '8080',
-				title: 'Test Anime 2',
-				image: '../../../public/Electric-Grape.png',
-				synopsis: 'Data for testing'
-			}
-		];
+		const animes = {
+			data: [
+				{
+					_id: '4040',
+					title: 'Test Anime',
+					image: '../../../public/Electric-Grape.png',
+					synopsis: 'Data for testing'
+				},
+				{
+					_id: '8080',
+					title: 'Test Anime 2',
+					image: '../../../public/Electric-Grape.png',
+					synopsis: 'Data for testing'
+				}
+			]
+		};
 		fetch.mockResolvedValueOnce(createFetchResponse(animes));
 
 		render(
@@ -121,20 +127,20 @@ describe('SearchPage component', () => {
 		const galleryImage = await screen.findByAltText('Test Anime');
 		expect(galleryImage).toBeInTheDocument();
 
-		const searchAnimes = [
-			{
-				myanimelist_id: '6060',
-				title: 'Search Test Anime',
-				image: '../../../public/Electric-Grape.png',
-				synopsis: 'Data for testing'
-			},
-			{
-				myanimelist_id: '2020',
-				title: 'Search Test Anime 2',
-				image: '../../../public/Electric-Grape.png',
-				synopsis: 'Data for testing'
-			}
-		];
+		const searchAnimes = {
+			data: [
+				{
+					_id: '2020',
+					title: 'Search Test Anime',
+					image: '../../../public/Electric-Grape.png'
+				},
+				{
+					_id: '1000',
+					title: 'Search Test Anime 2',
+					image: '../../../public/Electric-Grape.png'
+				}
+			]
+		};
 
 		fetch.mockResolvedValue(createFetchResponse(searchAnimes));
 
@@ -144,12 +150,12 @@ describe('SearchPage component', () => {
 		await userEvent.click(submit);
 
 		expect(fetch).toHaveBeenCalledWith(
-			`https://myanimelist.p.rapidapi.com/v2/anime/search?q=Berserk&n=50`,
+			`https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=Berserk&sortBy=ranking&sortOrder=asc`,
 			{
 				method: 'GET',
 				headers: {
 					'X-RapidAPI-Key': `${apiKey}`,
-					'X-RapidAPI-Host': 'myanimelist.p.rapidapi.com'
+					'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
 				}
 			}
 		);
@@ -159,20 +165,22 @@ describe('SearchPage component', () => {
 	});
 
 	it('returns an error when the fetch fails', async () => {
-		const animes = [
-			{
-				myanimelist_id: '4040',
-				title: 'Test Anime',
-				image: '../../../public/Electric-Grape.png',
-				synopsis: 'Data for testing'
-			},
-			{
-				myanimelist_id: '8080',
-				title: 'Test Anime 2',
-				image: '../../../public/Electric-Grape.png',
-				synopsis: 'Data for testing'
-			}
-		];
+		const animes = {
+			data: [
+				{
+					_id: '4040',
+					title: 'Test Anime',
+					image: '../../../public/Electric-Grape.png',
+					synopsis: 'Data for testing'
+				},
+				{
+					_id: '8080',
+					title: 'Test Anime 2',
+					image: '../../../public/Electric-Grape.png',
+					synopsis: 'Data for testing'
+				}
+			]
+		};
 
 		fetch.mockResolvedValueOnce(createFetchResponse(animes));
 
@@ -193,12 +201,12 @@ describe('SearchPage component', () => {
 		await userEvent.click(submit);
 
 		expect(fetch).toHaveBeenCalledWith(
-			`https://myanimelist.p.rapidapi.com/v2/anime/search?q=one piece&n=50`,
+			`https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=Berserk&sortBy=ranking&sortOrder=asc`,
 			{
 				method: 'GET',
 				headers: {
 					'X-RapidAPI-Key': `${apiKey}`,
-					'X-RapidAPI-Host': 'myanimelist.p.rapidapi.com'
+					'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
 				}
 			}
 		);

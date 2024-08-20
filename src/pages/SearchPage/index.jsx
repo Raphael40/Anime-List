@@ -11,19 +11,19 @@ const SearchPage = () => {
 	const [animes, setAnimes] = useState([]);
 
 	const searchApi = async () => {
-		const url = `https://myanimelist.p.rapidapi.com/v2/anime/search?q=${searchString}&n=50`;
+		const url = `https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=${searchString}&sortBy=ranking&sortOrder=asc`;
 		const options = {
 			method: 'GET',
 			headers: {
 				'X-RapidAPI-Key': `${apiKey}`,
-				'X-RapidAPI-Host': 'myanimelist.p.rapidapi.com'
+				'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
 			}
 		};
 
 		try {
 			const response = await fetch(url, options);
 			const result = await response.json();
-			setAnimes(result);
+			setAnimes(result.data);
 			if (animes) {
 				setIsLoading(false);
 			}

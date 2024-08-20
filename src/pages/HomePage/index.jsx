@@ -29,7 +29,6 @@ const HomePage = () => {
 				} else {
 					const animeResponse = await fetch(animeUrl, options);
 					const animeResult = await animeResponse.json();
-					console.log(animeResult);
 					setAnimes(animeResult.data);
 				}
 				if (animes) {
