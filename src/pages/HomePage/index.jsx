@@ -7,24 +7,31 @@ const apiKey = import.meta.env.VITE_API_KEY;
 const HomePage = () => {
 	const [isAnimeLoading, setIsAnimeLoading] = useState(true);
 	const [animes, setAnimes] = useState([]);
-	const [filter, setFilter] = useState('all');
+	const [filter, setFilter] = useState();
 
 	const displayAnime = useMemo(
 		() => async () => {
-			const animeUrl = `https://myanimelist.p.rapidapi.com/anime/top/${filter}`;
-
+			const animeUrl = `https://anime-db.p.rapidapi.com/anime?page=1&size=20&sortBy=ranking&sortOrder=asc`;
+			const animeUrlWithGenre = `https://anime-db.p.rapidapi.com/anime?page=1&size=20&genres=${filter}&sortBy=ranking&sortOrder=asc`;
 			const options = {
 				method: 'GET',
 				headers: {
 					'X-RapidAPI-Key': `${apiKey}`,
-					'X-RapidAPI-Host': 'myanimelist.p.rapidapi.com'
+					'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
 				}
 			};
 
 			try {
-				const animeResponse = await fetch(animeUrl, options);
-				const animeResult = await animeResponse.json();
-				setAnimes(animeResult);
+				if (filter) {
+					const animeResponse = await fetch(animeUrlWithGenre, options);
+					const animeResult = await animeResponse.json();
+					setAnimes(animeResult.data);
+				} else {
+					const animeResponse = await fetch(animeUrl, options);
+					const animeResult = await animeResponse.json();
+					console.log(animeResult);
+					setAnimes(animeResult.data);
+				}
 				if (animes) {
 					setIsAnimeLoading(false);
 				}

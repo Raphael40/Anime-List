@@ -1,22 +1,27 @@
 import './Filters.css';
 
 const filters = [
-	{ _id: 'All' },
-	{ _id: 'Airing' },
-	{ _id: 'Upcoming' },
-	{ _id: 'TV' },
-	{ _id: 'Movie' },
-	{ _id: 'Popular' }
+	{ _id: 'Award Winning' },
+	{ _id: 'Action' },
+	{ _id: 'Suspense' },
+	{ _id: 'Horror' },
+	{ _id: 'Avant Garde' },
+	{ _id: 'Sports' },
+	{ _id: 'Supernatural' },
+	{ _id: 'Fantasy' },
+	{ _id: 'Gourmet' },
+	{ _id: 'Drama' },
+	{ _id: 'Comedy' },
+	{ _id: 'Mystery' },
+	{ _id: 'Slice of Life' },
+	{ _id: 'Adventure' },
+	{ _id: 'Romance' },
+	{ _id: 'Sci-Fi' }
 ];
 
 const Filters = ({ setFilter }) => {
 	const handleClick = filter => {
-		const lowerCaseFilter = filter.toLowerCase();
-		if (lowerCaseFilter === 'popular') {
-			setFilter('bypopularity');
-		} else {
-			setFilter(lowerCaseFilter);
-		}
+		setFilter(filter);
 	};
 
 	return (

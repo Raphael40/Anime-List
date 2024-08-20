@@ -18,27 +18,19 @@ describe('Filters component', () => {
 		cleanup();
 	});
 
-	it('Displays a filters list with six children and text for each', () => {
+	it('Displays a filters list with sixteen children and text for each', () => {
 		const filtersList = screen.getByRole('filters-list');
-		const testFilter = screen.getByText('Upcoming');
+		const testFilter = screen.getByText('Fantasy');
 
 		expect(filtersList).toBeInTheDocument();
-		expect(filtersList.childNodes.length).toBe(6);
+		expect(filtersList.childNodes.length).toBe(16);
 		expect(testFilter).toBeInTheDocument();
 	});
 
 	it('Calls setFilter with correct filter when a filter is clicked', async () => {
-		const testFilter = screen.getByText('Movie');
+		const testFilter = screen.getByText('Action');
 		await userEvent.click(testFilter);
 
-		expect(setFilterMock).toHaveBeenCalledWith('movie');
-	});
-
-	it('Calls setFilter with bypopularity when popularity is clicked', async () => {
-		const testFilter = screen.getByText('Popular');
-
-		await userEvent.click(testFilter);
-
-		expect(setFilterMock).toHaveBeenCalledWith('bypopularity');
+		expect(setFilterMock).toHaveBeenCalledWith('Action');
 	});
 });
