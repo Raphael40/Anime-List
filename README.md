@@ -40,13 +40,10 @@ npm run coverage
 
 ### Technical Stack
 
-- **React**: Runtime for JavaScript outside the browser, ideal for restful API's.
-- **Vite**: Minimalist Node.js web framework used to run server.
-- **Vitest**: Jest for JavaScript testing and Supertest for HTTP server testing.
+-   **React**: Runtime for JavaScript outside the browser, ideal for restful API's.
+-   **Vite**: Minimalist Node.js web framework used to run server.
+-   **Vitest**: Jest for JavaScript testing and Supertest for HTTP server testing.
 
-This app uses a third party Api from Rapid Api: [anime-db](https://rapidapi.com/felixeschmittfes/api/myanimelist/)
-
-An old version of the website is available [here](https://anime-list-old.onrender.com/)
-This version uses a different API that had poor service
+This app uses a third party Api from Rapid Api: [anime-db](https://rapidapi.com/brian.rofiq/api/anime-db)
 
 **Enjoy!**
